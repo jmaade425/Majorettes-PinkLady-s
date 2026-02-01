@@ -187,27 +187,3 @@ window.closeLightbox = function() {
 
 
 
-
-// On attend que la page soit bien chargée
-document.addEventListener('DOMContentLoaded', () => {
-    const adminBtn = document.getElementById('admin-link');
-    
-    if (adminBtn) {
-        adminBtn.addEventListener('click', function(e) {
-            e.preventDefault(); // Empêche de remonter en haut de page
-            
-            // 1. On cache le contenu du site
-            // (Vérifie bien que l'id de ton contenu est 'site-content')
-            document.getElementById('site-content').style.display = 'none';
-            
-            // 2. On réaffiche l'écran de mot de passe
-            // (Vérifie bien que l'id de ton écran est 'login-screen')
-            document.getElementById('login-screen').style.display = 'flex';
-            
-            // 3. Optionnel : on vide le mot de passe
-            document.getElementById('password-input').value = '';
-            
-            console.log("Retour à l'écran de verrouillage");
-        });
-    }
-});
