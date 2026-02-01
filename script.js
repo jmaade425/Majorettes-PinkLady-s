@@ -185,8 +185,7 @@ window.closeLightbox = function() {
     document.getElementById('lightbox').style.display = 'none';
 };
 
-// Lancement initial
-window.renderCalendar();
+
 
 
 document.getElementById('admin-link').addEventListener('click', function(e) {
@@ -201,3 +200,6 @@ document.getElementById('admin-link').addEventListener('click', function(e) {
     // Optionnel : On vide le champ mot de passe pour plus de sécurité
     document.getElementById('password-input').value = '';
 });
+
+// Lancement initial
+window.renderCalendar();
