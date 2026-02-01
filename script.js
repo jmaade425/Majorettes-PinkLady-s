@@ -187,3 +187,17 @@ window.closeLightbox = function() {
 
 // Lancement initial
 window.renderCalendar();
+
+
+document.getElementById('admin-link').addEventListener('click', function(e) {
+    e.preventDefault(); // Empêche la page de se recharger
+    
+    // On cache le contenu du site
+    document.getElementById('site-content').style.display = 'none';
+    
+    // On réaffiche l'écran de verrouillage
+    document.getElementById('login-screen').style.display = 'flex';
+    
+    // Optionnel : On vide le champ mot de passe pour plus de sécurité
+    document.getElementById('password-input').value = '';
+});
