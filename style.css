@@ -13,8 +13,8 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { 
-    font-family: 'Segoe UI', Arial, sans-serif; 
-    background-color: #fcfafc; 
+    font-family: 'Paprika', Arial, sans-serif; 
+    background-color: #1d031d; 
     color: var(--dark-blue);
 }
 
@@ -39,7 +39,9 @@ nav a:hover { color: var(--pink-soft); }
 /* --- HERO SECTION --- */
 .hero {
     height: 40vh;
-    background: linear-gradient(135deg, var(--dark-blue) 0%, var(--purple-main) 100%);
+    background-image: url('chemin/vers/ton/img_corso2024.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -176,7 +178,7 @@ html {
     }
 }
 
-/* Grille de photos */
+/* --- GRILLE DE PHOTOS --- */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -184,23 +186,30 @@ html {
     padding: 10px;
 }
 
-.gallery-grid img {
+/* On applique maintenant le style à l'item et à l'image qu'il contient */
+.gallery-item {
     width: 100%;
     height: 180px;
-    object-fit: cover;
     border-radius: 10px;
+    overflow: hidden; /* Pour que l'image ne dépasse pas des bords arrondis */
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.gallery-grid img:hover {
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garde les photos bien cadrées */
+}
+
+.gallery-item:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Style de la fenêtre Lightbox */
+/* --- STYLE DE LA FENÊTRE LIGHTBOX --- */
 .lightbox {
-    display: none; /* Caché par défaut */
+    display: none; 
     position: fixed;
     z-index: 2000;
     top: 0; left: 0;
@@ -211,9 +220,18 @@ html {
     flex-direction: column;
 }
 
-.lightbox img {
+/* Conteneur pour grouper image + texte + bouton */
+.lightbox-container {
+    text-align: center;
     max-width: 90%;
-    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 95%;
+    max-height: 75vh; /* Évite que l'image prenne tout l'écran s'il y a du texte en dessous */
     border: 3px solid white;
     border-radius: 5px;
 }
@@ -222,6 +240,25 @@ html {
     color: white;
     margin-top: 15px;
     font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* BOUTON VOIR L'ALBUM */
+.btn-view-album {
+    display: inline-block;
+    background: #BA6E8F; /* Ton rose */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-view-album:hover {
+    background: white;
+    color: #BA6E8F;
 }
 
 .close-lightbox {
@@ -232,6 +269,7 @@ html {
     cursor: pointer;
 }
 
+/* --- FOOTER (Inchangé) --- */
 .main-footer {
     background: #2d3436;
     color: white;
@@ -327,31 +365,38 @@ nav ul {
     padding: 10px;
 }
 
-/* --- ADAPTATION MOBILE --- */
+/* --- ADAPTATION MOBILE (Correction bordures) --- */
 @media (max-width: 600px) {
+    nav {
+        width: 100%;
+        overflow: hidden; /* Empêche le site de glisser de gauche à droite */
+    }
+
     nav ul {
         display: flex;
-        flex-wrap: wrap;       /* <-- AJOUTE ÇA : Permet de passer à la ligne */
-        flex-direction: row; 
-        justify-content: center; 
-        align-items: center;
-        gap: 8px;              /* Un peu d'espace pour que ce soit beau */
-        padding: 10px;
-        width: 100%;
+        flex-wrap: wrap;      /* Force le passage à la ligne si ça touche les bords */
+        justify-content: center;
+        gap: 6px;             /* Espace réduit pour gagner de la place */
+        padding: 10px;        /* Marge intérieure pour que les boutons ne collent pas aux bords */
+        margin: 0 auto;
+        max-width: 100%;      /* Interdiction de dépasser l'écran */
+        box-sizing: border-box; 
+        list-style: none;
     }
 
     nav li {
-        width: auto;
+        display: block;       /* Assure que chaque puce se comporte bien */
     }
 
     nav a {
         display: inline-block;
-        padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2); /* Un petit bord pour mieux voir */
-        border-radius: 8px;
-        font-size: 0.85rem; 
-        white-space: nowrap;   /* Empêche le texte du bouton de se couper en deux */
+        padding: 6px 10px;    /* Boutons légèrement plus petits */
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        font-size: 0.75rem;   /* Texte plus petit (0.75 au lieu de 0.85) */
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
     }
 }
 
@@ -451,4 +496,77 @@ nav ul {
 .btn-playlist:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.announcement-bar { background: #ff1493; color: white; padding: 10px 0; overflow: hidden; z-index: 1001; }
+.scrolling-text { display: inline-block; white-space: nowrap; padding-left: 100%; animation: scroll-left 15s linear infinite; font-weight: bold; }
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+
+.archive-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fdf2f7; /* Rose très pâle */
+    border: 2px dashed #BA6E8F; /* Bordure pointillée rose */
+    border-radius: 15px;
+    text-align: center;
+}
+
+.archive-box label {
+    display: block;
+    margin-bottom: 10px;
+    color: #0C0420;
+    font-weight: bold;
+}
+
+#archive-select {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #BA6E8F;
+    background: white;
+    color: #7B466A;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    outline: none;
+}
+
+#archive-select:hover {
+    border-color: #ff1493;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item {
+    width: 100%;
+    height: 200px; /* IMPORTANT : Sans ça, la boîte fait 0px de haut */
+    background: #eee; /* Gris clair pour tester si la boîte s'affiche */
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.gallery-item img, .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Remplit le cadre sans déformer */
+    display: block;
+}
+
+#aide h4 {
+    color: var(--purple-main);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#aide .news-box, #aide .events-box {
+    border-top: 5px solid var(--pink-soft); /* Un peu plus doux que le violet */
+    min-height: auto; /* Pas besoin qu'ils soient géants ici */
 }
